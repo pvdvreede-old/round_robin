@@ -1,0 +1,24 @@
+groups_users_001: 
+  group_id: 10
+  user_id: 2
+groups_users_002: 
+  group_id: 10
+  user_id: 3
+groups_users_003: 
+  group_id: 10
+  user_id: 1
+groups_users_004: 
+  group_id: 11
+  user_id: 1
+groups_users_005: 
+  group_id: 11
+  user_id: 2
+groups_users_006: 
+  group_id: 12
+  user_id: 7
+groups_users_007: 
+  group_id: 12
+  user_id: 6
+groups_users_008: 
+  group_id: 12
+  user_id: 5

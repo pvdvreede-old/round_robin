@@ -1,6 +1,6 @@
 module RoundRobin
   module IssuePatch
-    def self.include(base)
+    def self.included(base)
       base.extend(ClassMethods)
       base.send(:include, InstanceMethods)
       base.class_eval do
@@ -8,7 +8,6 @@ module RoundRobin
 
         # add before save filter to change the user if a group
         before_save :round_robin_assign
-
       end
     end
 
@@ -18,6 +17,7 @@ module RoundRobin
     module InstanceMethods
 
       def round_robin_assign
+        RoundRobin.log_debug "Running round robin before save filter."
         # ignore items without an assignee
         return if self.assigned_to_id == nil
         # ignore items that are assigned to a user type
@@ -26,10 +26,16 @@ module RoundRobin
         group_rr = GroupRoundRobin.where(:group_id => self.assigned_to_id)
                                   .where(:is_active => true)[0]
         return if group_rr == nil
+        RoundRobin.log_debug "Round robin is: #{group_rr.attributes.inspect}"
         if not group_rr.is_weighted
-          next_user_id = get_round_robin_assignee group_rr.group_id, group_rr.last_user_id
+          # for normal round robin use the last user field
+          next_user_id = get_round_robin_assignee group_rr.group_id, (group_rr.last_user_id || 0)
           self.assigned_to_id = next_user_id
           group_rr.last_user_id = next_user_id
+          group_rr.save
+        else
+          # for weighted round robin, just get the person in the group with the least issues
+          # TBD
         end
       end
 
@@ -48,6 +54,10 @@ module RoundRobin
             end
           end
         end
+      end
+
+      def get_weighted_round_robin_assignee(group_id)
+        
       end
 
     end
