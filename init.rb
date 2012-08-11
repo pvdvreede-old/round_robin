@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Round Robin.  If not, see <http://www.gnu.org/licenses/>.
 
-require_dependency "issue_patch"
+require_dependency "round_robin_issue_patch"
 
 Redmine::Plugin.register :round_robin do
   name 'Round Robin plugin'
