@@ -1,3 +1,5 @@
+require_dependency "issue_patch"
+
 Redmine::Plugin.register :round_robin do
   name 'Round Robin plugin'
   author 'Paul Van de Vreede'
