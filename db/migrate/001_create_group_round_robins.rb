@@ -4,7 +4,7 @@ class CreateGroupRoundRobins < ActiveRecord::Migration
     	t.integer :group_id, :null => false
     	t.boolean :is_active, :null => false, :default => false
     	t.boolean :is_weighted, :null => false, :default => false
-    	t.integer :last_user, :null => true
+    	t.integer :last_user_id, :null => true
     end
   end
 end

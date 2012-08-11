@@ -2,5 +2,5 @@ class GroupRoundRobin < ActiveRecord::Base
   unloadable
 
   belongs_to :group
-  belongs_to :user, :though => :last_user
+  has_one :user, :through => :last_user_id
 end
