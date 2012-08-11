@@ -8,3 +8,9 @@ Redmine::Plugin.register :round_robin do
   url 'https://github.com/pvdvreede/round_robin'
   author_url 'https://github.com/pvdvreede'
 end
+
+module RoundRobin
+  def self.log_debug(msg)
+    Rails.logger.debug "DEBUG RoundRobin - #{msg}"
+  end
+end
