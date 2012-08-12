@@ -1,0 +1,29 @@
+<h2>Group Round Robin settings</h2>
+<% if @groups.count > 0 %>
+<table class="list">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Users</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%- @groups.each do |g| %>
+  <tr>
+    <td><%= link_to g.name, "/groups/#{g.id}/edit" %></td>
+    <td><%= g.users.count %></td>
+    <td class="buttons">
+      <%= image_tag( ((g.group_round_robin == nil or g.group_round_robin.is_active == false)? 'exclamation.png' : 'true.png'),
+              :style => "vertical-align:bottom;" )%>
+      <%= link_to( ((g.group_round_robin == nil or g.group_round_robin.is_active == false) ? "Activate" : "Deactivate"), 
+              activate_round_robin_setting_path(g), :confirm => "Are you sure?", :method => :activate )%>
+    </td>
+  </tr>
+  <%- end %>
+  </tbody>
+</table>
+<% else %>
+<p class="nodata">No data to display. Go <%= link_to "here", "/groups" %> to create some groups.</p>
+<div style="clear:both;"></div>
+<% end %>

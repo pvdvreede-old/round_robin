@@ -17,6 +17,7 @@
 # along with Round Robin.  If not, see <http://www.gnu.org/licenses/>.
 
 require_dependency "round_robin_issue_patch"
+require_dependency "round_robin_group_patch"
 
 Redmine::Plugin.register :round_robin do
   name 'Round Robin plugin'
@@ -25,6 +26,13 @@ Redmine::Plugin.register :round_robin do
   version '0.9.0'
   url 'https://github.com/pvdvreede/round_robin'
   author_url 'https://github.com/pvdvreede'
+
+  # add menu item for settings in Admin menu
+  menu :admin_menu, \
+       :round_robin_settings, \
+       {:controller => :round_robin_setting, :action => :index}, \
+       :caption => "Round Robin", \
+       :html => { :class => "groups" }
 end
 
 module RoundRobin

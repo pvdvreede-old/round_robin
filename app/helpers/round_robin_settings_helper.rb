@@ -16,6 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Round Robin.  If not, see <http://www.gnu.org/licenses/>.
 
-resources :round_robin_settings, :controller => 'round_robin_setting', :path => '/roundrobin/settings' do
-  post 'activate', :on => :member
+module RoundRobinSettingsHelper
+  def is_round_robin_nil_or_disabled(group)
+    return true if group.group_round_robin == nil
+    return true if group.group_round_robin.is_active == false
+    return false
+  end
 end

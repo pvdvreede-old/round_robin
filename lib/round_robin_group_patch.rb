@@ -16,6 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Round Robin.  If not, see <http://www.gnu.org/licenses/>.
 
-resources :round_robin_settings, :controller => 'round_robin_setting', :path => '/roundrobin/settings' do
-  post 'activate', :on => :member
+module RoundRobin
+  module GroupPatch
+    def self.included(base)
+      base.class_eval do
+        unloadable
+
+        # add before save filter to change the user if a group
+        has_one :group_round_robin
+      end
+    end
+  end
 end
+
+Group.send(:include, RoundRobin::GroupPatch)
