@@ -41,7 +41,7 @@ module RoundRobin
         # ignore items that are assigned to a user type
         return if self.assigned_to.type == "User"
         # if there are no items in the rr table then ignore
-        group_rr = GroupRoundRobin.where(:group_id => self.assigned_to_id)
+        group_rr = GroupRoundRobin.where(:group_id => self.assigned_to_id) \
                                   .where(:is_active => true)[0]
         return if group_rr == nil
         RoundRobin.log_debug "Round robin is: #{group_rr.attributes.inspect}"
