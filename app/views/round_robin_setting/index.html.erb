@@ -11,7 +11,7 @@
   <tbody>
   <%- @groups.each do |g| %>
   <tr>
-    <td><%= link_to g.name, "/groups/#{g.id}/edit" %></td>
+    <td><%= link_to g.name, edit_group_path(g) %></td>
     <td><%= g.users.count %></td>
     <td class="buttons">
       <%= image_tag( ((g.group_round_robin == nil or g.group_round_robin.is_active == false)? 'exclamation.png' : 'true.png'),
