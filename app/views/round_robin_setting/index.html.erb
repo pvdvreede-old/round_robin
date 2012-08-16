@@ -18,6 +18,12 @@
               :style => "vertical-align:bottom;" )%>
       <%= link_to( ((g.group_round_robin == nil or g.group_round_robin.is_active == false) ? "Activate" : "Deactivate"), 
               activate_round_robin_setting_path(g), :confirm => "Are you sure?", :method => :activate )%>
+      <% if g.group_round_robin.nil? == false && g.group_round_robin.is_active %>
+      <%= image_tag( 'add.png',
+              :style => "vertical-align:bottom;" )%>
+      <%= link_to( "Reset", 
+              reset_round_robin_setting_path(g), :confirm => "Are you sure?", :method => :reset )%>
+      <% end %>
     </td>
   </tr>
   <%- end %>

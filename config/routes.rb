@@ -18,4 +18,5 @@
 
 resources :round_robin_settings, :controller => 'round_robin_setting', :path => '/roundrobin/settings' do
   post 'activate', :on => :member
+  post 'reset', :on => :member
 end

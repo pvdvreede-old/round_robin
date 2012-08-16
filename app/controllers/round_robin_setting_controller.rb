@@ -31,6 +31,20 @@ class RoundRobinSettingController < ApplicationController
     end
   end
 
+  def reset
+    @group_rr = GroupRoundRobin.where(:group_id => params[:id])[0]
+    # reset the count
+    @group_rr.last_user_id = 0
+    
+    respond_to do |format|
+      if @group_rr.save
+        format.html { redirect_to(round_robin_settings_url, :notice => "Group updated successfully.")}
+      else
+        format.html { redirect_to(round_robin_settings_url, :error => "Could not update group.")}
+      end
+    end
+  end
+
   def activate
     @group_rr = GroupRoundRobin.where(:group_id => params[:id])[0]
     if @group_rr == nil
