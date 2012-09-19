@@ -36,14 +36,20 @@ module RoundRobin
 
       def round_robin_assign
         RoundRobin.log_debug "Running round robin before save filter."
-        # ignore items without an assignee
-        return if self.assigned_to_id == nil
+        # ignore items without an assignee and check for a category that has a group assignment
+        return if self.assigned_to_id.blank? && self.category.nil?
+        return if self.assigned_to_id.blank? && self.category.assigned_to_id.blank?
+
+        # get the assignment to work with
+        assignment = (self.assigned_to_id.blank?) ? self.category.assigned_to : self.assigned_to
+
         # ignore items that are assigned to a user type
-        return if self.assigned_to.type == "User"
+        return if assignment.type == "User"
         # if there are no items in the rr table then ignore
-        group_rr = GroupRoundRobin.where(:group_id => self.assigned_to_id) \
-                                  .where(:is_active => true)[0]
-        return if group_rr == nil
+        group_rr = GroupRoundRobin.where(:group_id => assignment.id) \
+                                  .where(:is_active => true) \
+                                  .first
+        return if group_rr.nil?
         RoundRobin.log_debug "Round robin is: #{group_rr.attributes.inspect}"
         if not group_rr.is_weighted
           # for normal round robin use the last user field
@@ -62,7 +68,7 @@ module RoundRobin
         user_count = users.count
         return if user_count == 0
         return users[0].id if user_count == 1
-        return users[0].id if last_id == 0 
+        return users[0].id if last_id == 0
         users.each_with_index do |u, i|
           if u.id == last_id
             if i+1 == user_count
@@ -75,7 +81,7 @@ module RoundRobin
       end
 
       def get_weighted_round_robin_assignee(group_id)
-        
+
       end
 
     end

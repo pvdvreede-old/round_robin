@@ -23,7 +23,7 @@ Redmine::Plugin.register :round_robin do
   name 'Round Robin plugin'
   author 'Paul Van de Vreede'
   description 'Assignment to users in a group via round robin.'
-  version '1.0.0'
+  version '1.0.1'
   url 'https://github.com/pvdvreede/round_robin'
   author_url 'https://github.com/pvdvreede'
 

@@ -2,7 +2,7 @@ grr_01:
   group_id: 12
   is_active: false
   is_weighted: false
-grr_01:
+grr_02:
   group_id: 10
   is_active: true
   is_weighted: false
